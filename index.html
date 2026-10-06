@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>Hamburger Menu — CSS Transition</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #10131c;
+      color: #f4f6fb;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 280px;
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at 50% 42%, rgb(68 85 145 / 18%), transparent 48%),
+        #10131c;
+    }
+
+    main {
+      display: grid;
+      justify-items: center;
+      gap: 22px;
+      text-align: center;
+    }
+
+    .menu-toggle {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      padding: 0;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 24px;
+      background: linear-gradient(145deg, #222838, #191e2b);
+      box-shadow:
+        0 18px 50px rgb(0 0 0 / 32%),
+        inset 0 1px 0 rgb(255 255 255 / 7%);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+
+    .menu-toggle:hover {
+      transform: translateY(-2px);
+      border-color: rgb(151 170 255 / 45%);
+      box-shadow:
+        0 22px 54px rgb(0 0 0 / 38%),
+        0 0 28px rgb(116 139 255 / 12%),
+        inset 0 1px 0 rgb(255 255 255 / 9%);
+    }
+
+    .menu-toggle:focus-visible {
+      outline: 3px solid #9eaeff;
+      outline-offset: 5px;
+    }
+
+    .bar {
+      position: absolute;
+      top: 50%;
+      left: 25px;
+      width: 38px;
+      height: 3px;
+      border-radius: 999px;
+      background: #f4f6fb;
+      transition: transform 320ms cubic-bezier(.2, .8, .2, 1), opacity 200ms ease;
+    }
+
+    .bar-top {
+      transform: translateY(-10px);
+    }
+
+    .bar-middle {
+      transform: translateY(0);
+    }
+
+    .bar-bottom {
+      transform: translateY(10px);
+    }
+
+    .menu-toggle.open .bar-top {
+      transform: translateY(0) rotate(45deg);
+    }
+
+    .menu-toggle.open .bar-middle {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .menu-toggle.open .bar-bottom {
+      transform: translateY(0) rotate(-45deg);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.25rem, 4vw, 1.6rem);
+      font-weight: 650;
+      letter-spacing: -0.035em;
+    }
+
+    p {
+      max-width: 320px;
+      margin: 7px 0 0;
+      color: #a5adbd;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .hint {
+      color: #778197;
+      font-size: 0.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false">
+      <span class="bar bar-top"></span>
+      <span class="bar bar-middle"></span>
+      <span class="bar bar-bottom"></span>
+    </button>
+    <div>
+      <h1>Hamburger Menu</h1>
+      <p>Chạm vào biểu tượng để chuyển đổi giữa menu và dấu X.</p>
+    </div>
+    <span class="hint">CSS transition · Click để thử</span>
+  </main>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Đóng menu" : "Mở menu");
+    });
+  </script>
+</body>
+</html>
